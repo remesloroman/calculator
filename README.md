@@ -1,1 +1,1 @@
-Calculator is a powerful computating app
+The project implements a simple calculator, that supports basic operations
