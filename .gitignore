@@ -1,15 +1,23 @@
-# Ignore CMake local-dependent file
+# Exclude VS Code
+.vscode/
+
+# Exclude Jet Brains
+.idea/
+
+# Ignore CMake user-presets file
 CMakeUserPresets.json
 
-# Ignore log file
+# Ignore log files
 *.log
 
-# Ignore build directory
+# Ignore build directories
 build/
+bin/
 
-# Ignore object file
+# Ignore object files
 *.obj
 *.o
+*.out
 *.so
 *.a
 *.slo
