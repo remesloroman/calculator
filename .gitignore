@@ -1,0 +1,16 @@
+# Ignore CMake local-dependent file
+CMakeUserPresets.json
+
+# Ignore log file
+*.log
+
+# Ignore build directory
+build/
+
+# Ignore object file
+*.obj
+*.o
+*.so
+*.a
+*.slo
+*.lo
