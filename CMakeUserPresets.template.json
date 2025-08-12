@@ -1,21 +1,21 @@
 {
-  "version": 3,
-  "configurePresets": [
-    {
-        "name": "g++-release",
-        "inherits": "default-release",
-        "cacheVariables": {
-            "CMAKE_CXX_COMPILER": "g++",
-            "CMAKE_CXX_COMPILER_FLAGS": "-O2 -DNDEBUG"
+    "version": 3,
+    "configurePresets": [
+        {
+            "name": "g++-release",
+            "inherits": "default-release",
+            "cacheVariables": {
+                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_CXX_COMPILER_FLAGS": "-O2 -DNDEBUG"
+            }
+        },
+        {
+            "name": "g++-debug",
+            "inherits": "default-debug",
+            "cacheVariables": {
+                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_CXX_COMPILER_FLAGS": "-Wall -Wextra -Werror -pedantic"
+            }
         }
-    },
-    {
-        "name": "g++-debug",
-        "inherits": "default-debug",
-        "cacheVariables": {
-            "CMAKE_CXX_COMPILER": "g++",
-            "CMAKE_CXX_COMPILER_FLAGS": "-Wall -Wextra -Werror -pedantic"
-        }
-    }
-  ]
+    ]
 }
