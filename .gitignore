@@ -14,6 +14,9 @@ CMakeUserPresets.json
 build/
 bin/
 
+# Ignore tests directory
+tests/
+
 # Ignore object files
 *.obj
 *.o
