@@ -1,0 +1,11 @@
+file(GLOB MATH_EXPR_FILES
+    CONFIGURE_DEPENDS
+    "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/*.hpp"
+)
+
+add_library(math_expr STATIC ${MATH_EXPR_FILES})
+
+target_include_directories(math_expr
+    PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/"
+)
