@@ -1,5 +1,7 @@
 #include "literal.hpp"
 
+Literal::Literal(FloatT rhs) : value_(rhs) {}
+
 FloatT Literal::eval() const {
     return value_;
 }
