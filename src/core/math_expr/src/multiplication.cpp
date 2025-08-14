@@ -1,4 +1,4 @@
-#include "multiplication.hpp"
+#include "math_expr/multiplication.hpp"
 
 Multiplication::Multiplication(ExprPtr lhs, ExprPtr rhs) : lhs_(std::move(lhs)), rhs_(std::move(rhs)){
 

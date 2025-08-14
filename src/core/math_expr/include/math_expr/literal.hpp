@@ -1,7 +1,6 @@
 #pragma once
-#include "expression.hpp"
-#include "../alias.hpp"
-#include <iostream>
+
+#include "math_expr/expression.hpp"
 
 class Literal : public Expression {
 public:

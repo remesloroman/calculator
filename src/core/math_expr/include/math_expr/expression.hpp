@@ -1,8 +1,9 @@
 #pragma once
 
 #include <iostream>
+#include <memory>
 
-#include "../alias.hpp"
+#include "../../alias.hpp"
 
 class Expression{
 public:
@@ -16,5 +17,4 @@ public:
 
 };
 
-#include <memory>
 using ExprPtr = std::unique_ptr<Expression>;
