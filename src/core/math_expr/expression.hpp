@@ -15,3 +15,6 @@ public:
     virtual ~Expression() = default;
 
 };
+
+#include <memory>
+using ExprPtr = std::unique_ptr<Expression>;
