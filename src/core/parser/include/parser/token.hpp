@@ -1,22 +1,8 @@
 #pragma once
 
 #include "../../alias.hpp"
+#include "parser/token_type.hpp"
 
-enum class TokenType
-{
-    EndOfFile,
-    Error,
-
-    Literal,
-    Addition,
-    Multiplication,
-    Subtraction,
-    Division,
-
-    LeftParen,
-    RightParen
-
-};
 
 class Token
 {
