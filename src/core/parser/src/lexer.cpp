@@ -1,46 +1,48 @@
 #include "parser/lexer.hpp"
+#include "parser/token_type_utils.hpp"
 
-void Lexer::skipSpaces() {
-    while (std::isspace(static_cast<unsigned char>(source.peek()))) {
-        source.get();
+Lexer::Lexer(std::string is) : source_(is)
+{
+}
+
+void Lexer::skipSpaces()
+{
+    while (std::isspace(static_cast<unsigned char>(source_.peek())))
+    {
+        source_.get();
     }
 }
 
-bool Lexer::checkEOF() {
-    int symbol = source.peek();
+bool Lexer::checkEOF()
+{
+    int symbol = source_.peek();
 
-    if(symbol == EOF) {
+    if (symbol == EOF)
+    {
         return true;
     }
 
     return false;
 }
 
-Token Lexer::next() {
+Token Lexer::next()
+{
     skipSpaces();
-    
-    if(checkEOF()) return Token(TokenType::EndOfFile);
-    
-    char symbol = source.peek();
-    
-    if(std::isdigit(static_cast<unsigned char>(symbol))) {
+
+    if (checkEOF())
+        return Token(TokenType::EndOfFile);
+
+    char symbol = source_.peek();
+
+    if (std::isdigit(static_cast<unsigned char>(symbol)))
+    {
         double value = 0.0;
-        if(!(source >> value)) return Token(TokenType::Error);
+        if (!(source_ >> value))
+            return Token(TokenType::Error);
 
         return Token(value);
-    } 
-
-    source.get();
-    
-    switch (symbol) {
-        case '+': return Token(TokenType::Addition);
-        case '-': return Token(TokenType::Subtraction);
-        case '*': return Token(TokenType::Multiplication);
-        case '/': return Token(TokenType::Division);
-        case '(': return Token(TokenType::LeftParen);
-        case ')': return Token(TokenType::RightParen);
     }
 
-
-    return Token(TokenType::Error);
+    source_.get();
+    return Token(getCharTokenType(symbol));
 }

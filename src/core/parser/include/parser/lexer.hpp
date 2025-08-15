@@ -3,8 +3,7 @@
 
 class Lexer {
 public:
-    Lexer() = default;
-    Lexer(std::string is): source(is) {}
+    Lexer(std::string is);
 
     Token next();
 
@@ -12,5 +11,5 @@ public:
 
     bool checkEOF();
 private:
-    std::istringstream source;
+    std::istringstream source_;
 };
