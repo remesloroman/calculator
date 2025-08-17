@@ -2,8 +2,8 @@
     "version": 3,
     "configurePresets": [
         {
-            "name": "default-release",
-            "description": "Release build with default compiler",
+            "name": "default-release-config",
+            "description": "Release config with default compiler and Unix Makefiles build system",
             "generator": "Unix Makefiles",
             "binaryDir": "build/${presetName}",
             "cacheVariables": {
@@ -11,13 +11,37 @@
             }
         },
         {
-            "name": "default-debug",
-            "description": "Debug build with default compiler",
+            "name": "default-debug-config",
+            "description": "Debug config with default compiler and Unix Makefiles build system",
             "generator": "Unix Makefiles",
             "binaryDir": "build/${presetName}",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
             }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "default-release-build",
+            "description": "Build preset that inherits from default-release-config",
+            "configurePreset": "default-release-config",
+            "targets": [
+                "calculator"
+            ],
+            "cleanFirst": true,
+            "verbose": false,
+            "jobs": 8
+        },
+        {
+            "name": "default-debug-build",
+            "description": "Build preset that inherits from default-debug-config",
+            "configurePreset": "default-debug-config",
+            "targets": [
+                "calculator"
+            ],
+            "cleanFirst": false,
+            "verbose": true,
+            "jobs": 8
         }
     ]
 }

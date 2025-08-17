@@ -2,20 +2,44 @@
     "version": 3,
     "configurePresets": [
         {
-            "name": "g++-release",
-            "inherits": "default-release",
+            "name": "g++-release-config",
+            "inherits": "default-release-config",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "g++",
                 "CMAKE_CXX_FLAGS_RELEASE": "-O2 -DNDEBUG"
             }
         },
         {
-            "name": "g++-debug",
-            "inherits": "default-debug",
+            "name": "g++-debug-config",
+            "inherits": "default-debug-config",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "g++",
                 "CMAKE_CXX_FLAGS_DEBUG": "-Wall -Wextra -Werror -pedantic"
             }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "g++-release-build",
+            "description": "Build preset that inherits from g++-release-config",
+            "configurePreset": "g++-release-config",
+            "targets": [
+                "calculator"
+            ],
+            "cleanFirst": true,
+            "verbose": false,
+            "jobs": 8
+        },
+        {
+            "name": "g++-debug-build",
+            "description": "Build preset that inherits from g++-debug-config",
+            "configurePreset": "g++-debug-config",
+            "targets": [
+                "calculator"
+            ],
+            "cleanFirst": false,
+            "verbose": true,
+            "jobs": 8
         }
     ]
 }
