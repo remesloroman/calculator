@@ -1,0 +1,4 @@
+add_executable(math_expr_test math_expr_test.cpp)
+target_link_libraries(math_expr_test PRIVATE math_expr)
+
+add_test(NAME math_expr_test_run COMMAND math_expr_test)
