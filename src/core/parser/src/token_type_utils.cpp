@@ -43,3 +43,17 @@ TokenType getCharTokenType(const char symbol)
         return TokenType::Error;
     }
 }
+
+bool isOperator(TokenType type) {
+    
+    switch (type)
+    {
+    case TokenType::Addition:
+    case TokenType::Multiplication:
+    case TokenType::Subtraction:
+    case TokenType::Division:
+        return true;
+    }
+
+    return false;
+}
