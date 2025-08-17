@@ -14,3 +14,5 @@ struct TokenTypeBP
 TokenTypeBP getTokenTypeBP(TokenType type);
 
 TokenType getCharTokenType(const char symbol);
+
+bool isOperator(TokenType type);
