@@ -4,6 +4,8 @@
 
 class Lexer {
 public:
+    Lexer() = default;
+
     Lexer(std::string is);
 
     Token next();
@@ -11,10 +13,12 @@ public:
     Token peek();
 
     Token current();
+
+    void initialize(std::string input);
 private:
     std::istringstream source_;
     std::queue<Token> tokens_;
-    Token current_;
+    Token current_ = Token(TokenType::EndOfFile);
 
     Token itterate();
 

@@ -1,18 +1,9 @@
 #include "parser/lexer.hpp"
 #include "parser/token_type_utils.hpp"
 
-Lexer::Lexer(std::string is) : source_(is), current_(TokenType::EndOfFile)
+Lexer::Lexer(std::string is)
 {
-    Token current = itterate();
-    tokens_.push(current);
-
-    // Init current_
-    current_ = current;
-
-    while(current.type() != TokenType::EndOfFile) {
-        current = itterate();
-        tokens_.push(current);
-    }
+    initialize(is);
 }
 
 void Lexer::skipSpaces()
@@ -69,4 +60,23 @@ Token Lexer::itterate()
 
 Token Lexer::current() {
     return current_;
+}
+
+void Lexer::initialize(std::string input) {
+    source_.clear();
+    source_.str(input);
+
+    // Clear queue
+    while(!tokens_.empty()) tokens_.pop();
+
+    Token current = itterate();
+    tokens_.push(current);
+
+    // Init current_
+    current_ = current;
+
+    while(current.type() != TokenType::EndOfFile) {
+        current = itterate();
+        tokens_.push(current);
+    }
 }
