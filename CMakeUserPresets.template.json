@@ -6,7 +6,7 @@
             "inherits": "default-release",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "g++",
-                "CMAKE_CXX_COMPILER_FLAGS": "-O2 -DNDEBUG"
+                "CMAKE_CXX_FLAGS_RELEASE": "-O2 -DNDEBUG"
             }
         },
         {
@@ -14,7 +14,7 @@
             "inherits": "default-debug",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "g++",
-                "CMAKE_CXX_COMPILER_FLAGS": "-Wall -Wextra -Werror -pedantic"
+                "CMAKE_CXX_FLAGS_DEBUG": "-Wall -Wextra -Werror -pedantic"
             }
         }
     ]
