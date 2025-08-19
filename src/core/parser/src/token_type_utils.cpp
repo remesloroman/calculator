@@ -44,8 +44,9 @@ TokenType getCharTokenType(const char symbol)
     }
 }
 
-bool isOperator(TokenType type) {
-    
+bool isOperator(TokenType type)
+{
+
     switch (type)
     {
     case TokenType::Addition:
@@ -53,6 +54,8 @@ bool isOperator(TokenType type) {
     case TokenType::Subtraction:
     case TokenType::Division:
         return true;
+    default:
+        return false;
     }
 
     return false;

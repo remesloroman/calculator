@@ -1,18 +1,24 @@
+#include <stdexcept>
+
 #include "parser/parser.hpp"
 
-void Parser::setInputString(std::string input) {
+void Parser::setInputString(std::string input)
+{
     lexer_.initialize(input);
 }
 
-Parser::Parser(std::string input) {
+Parser::Parser(std::string input)
+{
     setInputString(input);
 }
 
-ExprPtr Parser::parse() {
+ExprPtr Parser::parse()
+{
     return parse_expression(lexer_, 0.0);
 }
 
-ExprPtr Parser::make_expression(TokenType op, ExprPtr lhs, ExprPtr rhs) {
+ExprPtr Parser::make_expression(TokenType op, ExprPtr lhs, ExprPtr rhs)
+{
     switch (op)
     {
     case TokenType::Addition:
@@ -27,25 +33,30 @@ ExprPtr Parser::make_expression(TokenType op, ExprPtr lhs, ExprPtr rhs) {
     case TokenType::Division:
         return std::make_unique<Division>(std::move(lhs), std::move(rhs));
         break;
+    default:
+        throw std::invalid_argument("Parser::make_expression: op argument must represent an operation");
     }
 
     return nullptr;
 }
 
-ExprPtr Parser::parseInfixLoop(Lexer & lexer, ExprPtr lhs, FloatT min_bp) {
-    while(true) {
+ExprPtr Parser::parseInfixLoop(Lexer &lexer, ExprPtr lhs, FloatT min_bp)
+{
+    while (true)
+    {
         Token token = lexer.peek();
 
-        if (token.type() == TokenType::RightParen) 
+        if (token.type() == TokenType::RightParen)
             break;
-        else if(token.type() == TokenType::EndOfFile)
+        else if (token.type() == TokenType::EndOfFile)
             break;
-        else if(!isOperator(token.type()))
+        else if (!isOperator(token.type()))
             throw std::runtime_error("parseInfixLoop: unexpected symbol");
 
         TokenTypeBP bp = getTokenTypeBP(token.type());
 
-        if(bp.lhs_bp_ < min_bp) break;
+        if (bp.lhs_bp_ < min_bp)
+            break;
 
         lexer.next();
 
@@ -57,25 +68,28 @@ ExprPtr Parser::parseInfixLoop(Lexer & lexer, ExprPtr lhs, FloatT min_bp) {
     return lhs;
 }
 
-ExprPtr Parser::parsePrefix(Lexer & lexer) {
+ExprPtr Parser::parsePrefix(Lexer &lexer)
+{
     Token token = lexer.next();
 
-    switch(token.type()) {
-        case TokenType::Literal:
-            return std::make_unique<Literal>(token.val());
-        case TokenType::LeftParen:
-            return parse_expression(lexer, 0.0);
-        default:
-            throw std::runtime_error("Parser.parsePrefix: unexpected symbol");
+    switch (token.type())
+    {
+    case TokenType::Literal:
+        return std::make_unique<Literal>(token.val());
+    case TokenType::LeftParen:
+        return parse_expression(lexer, 0.0);
+    default:
+        throw std::runtime_error("Parser.parsePrefix: unexpected symbol");
     }
 
     return nullptr;
 }
 
-ExprPtr Parser::parse_expression(Lexer & lexer, FloatT min_bp) {
+ExprPtr Parser::parse_expression(Lexer &lexer, FloatT min_bp)
+{
     ExprPtr lhs = parsePrefix(lexer);
 
-    lhs = parseInfixLoop(lexer, std::move(lhs), min_bp);    
+    lhs = parseInfixLoop(lexer, std::move(lhs), min_bp);
 
     return lhs;
 }
