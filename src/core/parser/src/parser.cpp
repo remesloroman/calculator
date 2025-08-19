@@ -14,10 +14,10 @@ Parser::Parser(std::string input)
 
 ExprPtr Parser::parse()
 {
-    return parse_expression(lexer_, 0.0);
+    return parseExpression(lexer_, 0.0);
 }
 
-ExprPtr Parser::make_expression(TokenType op, ExprPtr lhs, ExprPtr rhs)
+ExprPtr Parser::makeExpression(TokenType op, ExprPtr lhs, ExprPtr rhs)
 {
     switch (op)
     {
@@ -34,7 +34,7 @@ ExprPtr Parser::make_expression(TokenType op, ExprPtr lhs, ExprPtr rhs)
         return std::make_unique<Division>(std::move(lhs), std::move(rhs));
         break;
     default:
-        throw std::invalid_argument("Parser::make_expression: op argument must represent an operation");
+        throw std::invalid_argument("Parser::makeExpression: op argument must represent an operation");
     }
 
     return nullptr;
@@ -51,7 +51,7 @@ ExprPtr Parser::parseInfixLoop(Lexer &lexer, ExprPtr lhs, FloatT min_bp)
         else if (token.type() == TokenType::EndOfFile)
             break;
         else if (!isOperator(token.type()))
-            throw std::runtime_error("parseInfixLoop: unexpected symbol");
+            throw std::runtime_error("Parser::parseInfixLoop: unexpected symbol");
 
         TokenTypeBP bp = getTokenTypeBP(token.type());
 
@@ -60,9 +60,9 @@ ExprPtr Parser::parseInfixLoop(Lexer &lexer, ExprPtr lhs, FloatT min_bp)
 
         lexer.next();
 
-        ExprPtr rhs = parse_expression(lexer, bp.rhs_bp_);
+        ExprPtr rhs = parseExpression(lexer, bp.rhs_bp_);
 
-        lhs = make_expression(token.type(), std::move(lhs), std::move(rhs));
+        lhs = makeExpression(token.type(), std::move(lhs), std::move(rhs));
     }
 
     return lhs;
@@ -77,15 +77,15 @@ ExprPtr Parser::parsePrefix(Lexer &lexer)
     case TokenType::Literal:
         return std::make_unique<Literal>(token.val());
     case TokenType::LeftParen:
-        return parse_expression(lexer, 0.0);
+        return parseExpression(lexer, 0.0);
     default:
-        throw std::runtime_error("Parser.parsePrefix: unexpected symbol");
+        throw std::runtime_error("Parser::parsePrefix: unexpected symbol");
     }
 
     return nullptr;
 }
 
-ExprPtr Parser::parse_expression(Lexer &lexer, FloatT min_bp)
+ExprPtr Parser::parseExpression(Lexer &lexer, FloatT min_bp)
 {
     ExprPtr lhs = parsePrefix(lexer);
 
