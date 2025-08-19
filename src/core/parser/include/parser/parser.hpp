@@ -25,6 +25,6 @@ private:
     ExprPtr parseInfixLoop(Lexer & lexer, ExprPtr lhs, FloatT min_bp);
     ExprPtr parsePrefix(Lexer & lexer);
 
-    Lexer lexer;
+    Lexer lexer_;
    
 };

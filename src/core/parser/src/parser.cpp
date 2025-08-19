@@ -1,7 +1,7 @@
 #include "parser/parser.hpp"
 
 void Parser::setInputString(std::string input) {
-    lexer.initialize(input);
+    lexer_.initialize(input);
 }
 
 Parser::Parser(std::string input) {
@@ -9,7 +9,7 @@ Parser::Parser(std::string input) {
 }
 
 ExprPtr Parser::parse() {
-    return parse_expression(lexer, 0.0);
+    return parse_expression(lexer_, 0.0);
 }
 
 ExprPtr Parser::make_expression(TokenType op, ExprPtr lhs, ExprPtr rhs) {
