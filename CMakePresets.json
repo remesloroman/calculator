@@ -37,7 +37,7 @@
             "description": "Build preset that inherits from default-debug-config",
             "configurePreset": "default-debug-config",
             "targets": [
-                "calculator"
+                "all"
             ],
             "cleanFirst": false,
             "verbose": true,
