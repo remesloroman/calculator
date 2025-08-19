@@ -1,6 +1,6 @@
 #include <assert.h>
 #include <iostream>
-#include <math.h>
+#include <cmath>
 
 #include "parser/lexer.hpp"
 #include "parser/parser.hpp"
@@ -128,7 +128,7 @@ int main () {
         assert(p.parse()->eval() == 4.5);
 
         p.setInputString("9.2 + 0.1");
-        assert(fabs(p.parse()->eval() - 9.3) < EPSILON);
+        assert(std::abs(p.parse()->eval() - 9.3) < EPSILON);
         // Fails with std::numeric_limits<FloatT>::epsilon()
 
         p.setInputString("002 + 01");
