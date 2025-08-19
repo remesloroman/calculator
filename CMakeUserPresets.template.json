@@ -6,7 +6,8 @@
             "inherits": "default-release-config",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "g++",
-                "CMAKE_CXX_FLAGS_RELEASE": "-O2 -DNDEBUG"
+                "CMAKE_CXX_FLAGS_RELEASE": "-O2 -DNDEBUG",
+                "CMAKE_PREFIX_PATH": "<PATH_TO_QT6>"
             }
         },
         {
@@ -14,7 +15,8 @@
             "inherits": "default-debug-config",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "g++",
-                "CMAKE_CXX_FLAGS_DEBUG": "-Wall -Wextra -Werror -pedantic"
+                "CMAKE_CXX_FLAGS_DEBUG": "-Wall -Wextra -Werror -pedantic",
+                "CMAKE_PREFIX_PATH": "<PATH_TO_QT6>"
             }
         }
     ],
