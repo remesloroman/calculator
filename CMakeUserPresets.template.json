@@ -35,7 +35,7 @@
             "description": "Build preset that inherits from g++-debug-config",
             "configurePreset": "g++-debug-config",
             "targets": [
-                "calculator"
+                "all"
             ],
             "cleanFirst": false,
             "verbose": true,
