@@ -43,5 +43,13 @@
             "verbose": true,
             "jobs": 8
         }
+    ],
+    "testPresets": [
+        {
+            "name": "g++-test",
+            "description": "Test preset with g++-debug-config configuration",
+            "inherits": "default-test",
+            "configurePreset": "g++-debug-config"
+        }
     ]
 }
