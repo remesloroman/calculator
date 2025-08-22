@@ -1,7 +1,7 @@
-#include <iostream>
+#include "launcher/launcher.hpp"
 
-int main(){
-    std::cout << "Hello There" << std::endl;
-
+int main(int argc, char *argv[]){
+    
+    Launcher::start(argc, argv);
     return 0;
 }
