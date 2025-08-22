@@ -3,51 +3,43 @@
     "configurePresets": [
         {
             "name": "g++-release-config",
+            "description": "Relase config with g++ compiler",
             "inherits": "default-release-config",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "g++",
                 "CMAKE_CXX_FLAGS_RELEASE": "-O2 -DNDEBUG",
-                "CMAKE_PREFIX_PATH": "<PATH_TO_QT6>"
+                "CMAKE_PREFIX_PATH": "/home/tim4ik/opt/Qt/6.9.1/gcc_64/lib/cmake/"
             }
         },
         {
             "name": "g++-debug-config",
+            "description": "Debug config with g++ compiler",
             "inherits": "default-debug-config",
             "cacheVariables": {
                 "CMAKE_CXX_COMPILER": "g++",
                 "CMAKE_CXX_FLAGS_DEBUG": "-Wall -Wextra -Werror -pedantic",
-                "CMAKE_PREFIX_PATH": "<PATH_TO_QT6>"
+                "CMAKE_PREFIX_PATH": "/home/tim4ik/opt/Qt/6.9.1/gcc_64/lib/cmake/"
             }
         }
     ],
     "buildPresets": [
         {
             "name": "g++-release-build",
-            "description": "Build preset that inherits from g++-release-config",
-            "configurePreset": "g++-release-config",
-            "targets": [
-                "calculator"
-            ],
-            "cleanFirst": true,
-            "verbose": false,
-            "jobs": 8
+            "description": "Release build with g++ config",
+            "inherits": "default-release-build",
+            "configurePreset": "g++-release-config"
         },
         {
             "name": "g++-debug-build",
-            "description": "Build preset that inherits from g++-debug-config",
-            "configurePreset": "g++-debug-config",
-            "targets": [
-                "all"
-            ],
-            "cleanFirst": false,
-            "verbose": true,
-            "jobs": 8
+            "description": "Debug build with g++ config",
+            "inherits": "default-debug-build",
+            "configurePreset": "g++-debug-config"
         }
     ],
     "testPresets": [
         {
             "name": "g++-test",
-            "description": "Test preset with g++-debug-config configuration",
+            "description": "Test preset with g++ config",
             "inherits": "default-test",
             "configurePreset": "g++-debug-config"
         }

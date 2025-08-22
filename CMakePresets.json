@@ -3,7 +3,7 @@
     "configurePresets": [
         {
             "name": "default-release-config",
-            "description": "Release config with default compiler and Unix Makefiles build system",
+            "description": "Relase config with default compiler",
             "generator": "Unix Makefiles",
             "binaryDir": "build/${presetName}",
             "cacheVariables": {
@@ -12,7 +12,7 @@
         },
         {
             "name": "default-debug-config",
-            "description": "Debug config with default compiler and Unix Makefiles build system",
+            "description": "Debug config with default compiler",
             "generator": "Unix Makefiles",
             "binaryDir": "build/${presetName}",
             "cacheVariables": {
@@ -23,7 +23,7 @@
     "buildPresets": [
         {
             "name": "default-release-build",
-            "description": "Build preset that inherits from default-release-config",
+            "description": "Release build with default config",
             "configurePreset": "default-release-config",
             "targets": [
                 "calculator"
@@ -34,7 +34,7 @@
         },
         {
             "name": "default-debug-build",
-            "description": "Build preset that inherits from default-debug-config",
+            "description": "Debug build with default config",
             "configurePreset": "default-debug-config",
             "targets": [
                 "all"
@@ -47,7 +47,7 @@
     "testPresets": [
         {
             "name": "default-test",
-            "description": "Test preset with default-debug-config configuration",
+            "description": "Test preset with default config",
             "configurePreset": "default-debug-config",
             "output": {
                 "outputOnFailure": true
