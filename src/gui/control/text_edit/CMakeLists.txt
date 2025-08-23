@@ -8,10 +8,11 @@ file(GLOB_RECURSE TEXT_EDIT_QML_FILES
 list(TRANSFORM TEXT_EDIT_QML_FILES 
              REPLACE "^${CMAKE_CURRENT_SOURCE_DIR}/" "")
 
-add_library(text_edit SHARED "")
+qt_add_library(text_edit SHARED "")
 qt_add_qml_module(text_edit
                 URI text_edit
                 QML_FILES
-                "${TEXT_EDIT_QML_FILES}")
+                "${TEXT_EDIT_QML_FILES}"
+                PLUGIN_TARGET text_edit)
 
 

@@ -8,10 +8,11 @@ file(GLOB_RECURSE BUTTON_QML_FILES
 list(TRANSFORM BUTTON_QML_FILES 
              REPLACE "^${CMAKE_CURRENT_SOURCE_DIR}/" "")
 
-add_library(button SHARED "")
+qt_add_library(button SHARED "")
 qt_add_qml_module(button
                 URI button
                 QML_FILES
-                "${BUTTON_QML_FILES}")
+                "${BUTTON_QML_FILES}"
+                PLUGIN_TARGET button)
 
 
