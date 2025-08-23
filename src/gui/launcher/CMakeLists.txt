@@ -22,7 +22,8 @@ target_include_directories(launcher PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/
 qt_add_qml_module(launcher
                 URI launcher
                 QML_FILES
-                "qml/Main.qml")
+                "${LAUNCHER_QML_FILES}"
+                PLUGIN_TARGET launcher)
 
 target_link_libraries(launcher PUBLIC control)
 target_link_libraries(launcher PUBLIC Qt6::Quick Qt6::Core)
