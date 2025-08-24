@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../alias.hpp"
+#include "alias/alias.hpp"
 #include "parser/token_type.hpp"
 
 
