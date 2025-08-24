@@ -2,46 +2,46 @@
     "version": 3,
     "configurePresets": [
         {
-            "name": "g++-release-config",
-            "description": "Relase config with g++ compiler",
+            "name": "clang-release-config",
+            "description": "Relase config with clang compiler",
             "inherits": "default-release-config",
             "cacheVariables": {
-                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_CXX_COMPILER": "clang",
                 "CMAKE_CXX_FLAGS_RELEASE": "-O2 -DNDEBUG",
-                "CMAKE_PREFIX_PATH": "/home/tim4ik/opt/Qt/6.9.1/gcc_64/lib/cmake/"
+                "CMAKE_PREFIX_PATH": "<QT6_PATH>"
             }
         },
         {
-            "name": "g++-debug-config",
-            "description": "Debug config with g++ compiler",
+            "name": "clang-debug-config",
+            "description": "Debug config with clang compiler",
             "inherits": "default-debug-config",
             "cacheVariables": {
-                "CMAKE_CXX_COMPILER": "g++",
+                "CMAKE_CXX_COMPILER": "clang++",
                 "CMAKE_CXX_FLAGS_DEBUG": "-Wall -Wextra -Werror -pedantic",
-                "CMAKE_PREFIX_PATH": "/home/tim4ik/opt/Qt/6.9.1/gcc_64/lib/cmake/"
+                "CMAKE_PREFIX_PATH": "<QT6_PATH>"
             }
         }
     ],
     "buildPresets": [
         {
-            "name": "g++-release-build",
-            "description": "Release build with g++ config",
+            "name": "clang-release-build",
+            "description": "Release build with clang config",
             "inherits": "default-release-build",
-            "configurePreset": "g++-release-config"
+            "configurePreset": "clang-release-config"
         },
         {
-            "name": "g++-debug-build",
-            "description": "Debug build with g++ config",
+            "name": "clang-debug-build",
+            "description": "Debug build with clang config",
             "inherits": "default-debug-build",
-            "configurePreset": "g++-debug-config"
+            "configurePreset": "clang-debug-config"
         }
     ],
     "testPresets": [
         {
-            "name": "g++-test",
-            "description": "Test preset with g++ config",
+            "name": "clang-test",
+            "description": "Test preset with clang config",
             "inherits": "default-test",
-            "configurePreset": "g++-debug-config"
+            "configurePreset": "clang-debug-config"
         }
     ]
 }
