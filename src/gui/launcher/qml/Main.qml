@@ -8,6 +8,10 @@ import gui.control.text_edit
 Window {
     width: 350
     height: 430
+
+    minimumWidth: 200
+    minimumHeight: 260
+
     visible: true
     title: qsTr("Qualqulator")
 
