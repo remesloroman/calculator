@@ -1,7 +1,7 @@
 #pragma once
 
 #include "parser/token_type.hpp"
-#include "../../alias.hpp"
+#include "alias/alias.hpp"
 
 struct TokenTypeBP
 {
