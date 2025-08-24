@@ -10,7 +10,7 @@ list(TRANSFORM TEXT_EDIT_QML_FILES
 
 qt_add_library(text_edit SHARED "")
 qt_add_qml_module(text_edit
-                URI text_edit
+                URI gui.control.text_edit
                 QML_FILES
                 "${TEXT_EDIT_QML_FILES}"
                 PLUGIN_TARGET text_edit)
