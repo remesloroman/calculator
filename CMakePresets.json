@@ -4,7 +4,7 @@
         {
             "name": "default-release-config",
             "description": "Relase config with default compiler",
-            "generator": "Unix Makefiles",
+            "generator": "Ninja",
             "binaryDir": "build/${presetName}",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
@@ -13,7 +13,7 @@
         {
             "name": "default-debug-config",
             "description": "Debug config with default compiler",
-            "generator": "Unix Makefiles",
+            "generator": "Ninja",
             "binaryDir": "build/${presetName}",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
