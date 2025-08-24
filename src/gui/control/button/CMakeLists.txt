@@ -10,7 +10,7 @@ list(TRANSFORM BUTTON_QML_FILES
 
 qt_add_library(button SHARED "")
 qt_add_qml_module(button
-                URI button
+                URI gui.control.button
                 QML_FILES
                 "${BUTTON_QML_FILES}"
                 PLUGIN_TARGET button)

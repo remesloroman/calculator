@@ -10,7 +10,7 @@ list(TRANSFORM LAYOUT_QML_FILES
 
 qt_add_library(layout SHARED "")
 qt_add_qml_module(layout
-                URI layout
+                URI gui.layout
                 QML_FILES
                 "${LAYOUT_QML_FILES}"
                 PLUGIN_TARGET layout)
