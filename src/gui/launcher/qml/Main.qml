@@ -2,6 +2,9 @@ import QtQuick
 import QtQuick.Layouts
 import QtQuick.Controls
 
+import gui.layout
+import gui.control.text_edit
+
 Window {
     width: 350
     height: 430

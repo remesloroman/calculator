@@ -1,6 +1,8 @@
 import QtQuick
 import QtQuick.Layouts
 
+import gui.control.button
+
 GridLayout {
     Layout.fillWidth: true
     Layout.fillHeight: true
@@ -10,7 +12,7 @@ GridLayout {
     rowSpacing: 0
 
 
-    ButtonsData {
+    ButtonModel {
         id: data
     }
 
