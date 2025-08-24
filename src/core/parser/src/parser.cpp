@@ -1,15 +1,15 @@
 #include <stdexcept>
+#include <memory>
 
 #include "parser/parser.hpp"
 
 void Parser::setInputString(std::string input)
 {
-    lexer_.initialize(input);
+    lexer_.initialize(std::move(input));
 }
 
-Parser::Parser(std::string input)
+Parser::Parser(std::string input) : lexer_(std::move(input))
 {
-    setInputString(input);
 }
 
 ExprPtr Parser::parse()

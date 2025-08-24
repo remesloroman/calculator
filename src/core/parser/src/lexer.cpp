@@ -1,9 +1,11 @@
+#include <memory>
+
 #include "parser/lexer.hpp"
 #include "parser/token_type_utils.hpp"
 
 Lexer::Lexer(std::string is)
 {
-    initialize(is);
+    initialize(std::move(is));
 }
 
 void Lexer::skipSpaces()
@@ -64,7 +66,7 @@ Token Lexer::current() {
 
 void Lexer::initialize(std::string input) {
     source_.clear();
-    source_.str(input);
+    source_.str(std::move(input));
 
     // Clear queue
     while(!tokens_.empty()) tokens_.pop();

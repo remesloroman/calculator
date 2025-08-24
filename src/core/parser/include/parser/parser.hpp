@@ -11,8 +11,6 @@
 
 class Parser {
 public:
-    Parser() = default;
-
     Parser(std::string input);
 
     void setInputString(std::string input);

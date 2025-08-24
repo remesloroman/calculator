@@ -4,10 +4,9 @@
 #include <queue>
 #include "parser/token.hpp"
 
-class Lexer {
+class Lexer
+{
 public:
-    Lexer() = default;
-
     Lexer(std::string is);
 
     Token next();
@@ -17,9 +16,12 @@ public:
     Token current();
 
     void initialize(std::string input);
+
 private:
     std::istringstream source_;
+
     std::queue<Token> tokens_;
+
     Token current_ = Token(TokenType::EndOfFile);
 
     Token itterate();
