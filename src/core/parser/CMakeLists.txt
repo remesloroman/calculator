@@ -5,7 +5,7 @@ file(GLOB_RECURSE PARSER_FILES
 )
 
 add_library(parser SHARED ${PARSER_FILES})
-target_link_libraries(parser PUBLIC math_expr)
+target_link_libraries(parser PUBLIC math_expr alias)
 
 target_include_directories(parser
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/"
