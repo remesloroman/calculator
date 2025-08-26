@@ -1,6 +1,6 @@
 #include "math_expr/subtraction.hpp"
 
-Subtraction::Subtraction(ExprPtr lhs, ExprPtr rhs) : lhs_(std::move(lhs)), rhs_(std::move(rhs)){
+Subtraction::Subtraction(ExprPtr lhs, ExprPtr rhs) : BinaryExpression(std::move(lhs), std::move(rhs)){
 
 }
 

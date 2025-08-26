@@ -1,6 +1,6 @@
 #include "math_expr/addition.hpp"
 
-Addition::Addition(ExprPtr lhs, ExprPtr rhs) : lhs_(std::move(lhs)), rhs_(std::move(rhs)){
+Addition::Addition(ExprPtr lhs, ExprPtr rhs) : BinaryExpression(std::move(lhs), std::move(lhs)){
 
 }
 
