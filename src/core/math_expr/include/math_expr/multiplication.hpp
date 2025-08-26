@@ -1,8 +1,8 @@
 #pragma once
 
-#include "math_expr/expression.hpp"
+#include "math_expr/binary_expression.hpp"
 
-class Multiplication : public Expression
+class Multiplication : public BinaryExpression
 {
 public:
     Multiplication(ExprPtr lhs, ExprPtr rhs);

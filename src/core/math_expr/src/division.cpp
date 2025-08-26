@@ -1,6 +1,7 @@
 #include "math_expr/division.hpp"
 
-Division::Division(ExprPtr lhs, ExprPtr rhs) : lhs_(std::move(lhs)), rhs_(std::move(rhs)){
+Division::Division(ExprPtr lhs, ExprPtr rhs) 
+: BinaryExpression(std::move(lhs), std::move(rhs)){
 
 }
 

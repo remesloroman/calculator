@@ -23,6 +23,6 @@ qt_add_qml_module(launcher
                 "${LAUNCHER_QML_FILES}"
                 PLUGIN_TARGET launcher)
 
-target_link_libraries(launcher PUBLIC control layout)
+target_link_libraries(launcher PUBLIC control layout calculator_controller)
 target_link_libraries(launcher PUBLIC Qt6::Quick Qt6::Core)
 

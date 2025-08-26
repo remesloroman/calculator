@@ -3,7 +3,7 @@ import QtQuick.Controls
 import QtQuick.Layouts
 
 Rectangle {
-    id: display
+    id: root
     width: 300
     height: 80
     color: "#2f3b3e"
@@ -11,6 +11,7 @@ Rectangle {
     border.width: 1
 
     property alias text: tedit.text
+    signal textEdited(string newText)
 
     ScrollView {
         id: outerScroll
@@ -30,6 +31,14 @@ Rectangle {
             focus: true
             text: ""
 
+            Keys.onReturnPressed: function(event) {
+                event.accepted = true
+            }
+
+            Keys.onEnterPressed: function(event) {
+                event.accepted = true
+            }
+            
             function scrollToEnd() {
                         Qt.callLater(function() {
                             outerScroll.contentItem.contentX =
@@ -37,7 +46,10 @@ Rectangle {
                         })
                     }
 
-            onTextChanged: scrollToEnd()
+            onTextChanged: function(text) {
+                scrollToEnd()
+                root.textEdited(text)
+            }
             onWidthChanged: scrollToEnd()
         }
 
