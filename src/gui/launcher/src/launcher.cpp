@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 
 #include "launcher/launcher.hpp"
+#include "calculator_controller/calculator_controller.hpp"
 
 namespace Launcher
 {
@@ -10,6 +11,10 @@ namespace Launcher
         QGuiApplication app(argc, argv);
 
         QQmlApplicationEngine engine;
+
+        CalculatorController *calculatorController = new CalculatorController(&app);
+        qmlRegisterSingletonInstance("controller", 1, 0, "CalculatorController", calculatorController);
+
         QObject::connect(
             &engine,
             &QQmlApplicationEngine::objectCreationFailed,
