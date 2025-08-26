@@ -4,7 +4,7 @@ file(GLOB_RECURSE MATH_EXPR_FILES
     "${CMAKE_CURRENT_SOURCE_DIR}/*.hpp"
 )
 
-add_library(math_expr STATIC ${MATH_EXPR_FILES})
+add_library(math_expr SHARED ${MATH_EXPR_FILES})
 
 target_include_directories(math_expr
     PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/include/"
