@@ -1,32 +1,27 @@
 #pragma once
 
 #include <sstream>
-#include <queue>
+
 #include "parser/token.hpp"
 
 class Lexer
 {
 public:
-    Lexer(std::string is);
+    Lexer(std::string input_str);
 
-    Token next();
+    void str(std::string input_str);
 
-    Token peek();
+    Token curr() const;
 
-    Token current();
+    Lexer &next();
 
-    void initialize(std::string input);
+    bool end() const;
+
+    bool error() const;
 
 private:
-    std::istringstream source_;
+    Token getTokenFromStream();
 
-    std::queue<Token> tokens_;
-
-    Token current_ = Token(TokenType::EndOfFile);
-
-    Token itterate();
-
-    void skipSpaces();
-
-    bool checkEOF();
+    std::istringstream input_stream_;
+    Token curr_;
 };
