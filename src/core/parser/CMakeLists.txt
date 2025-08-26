@@ -4,7 +4,7 @@ file(GLOB_RECURSE PARSER_FILES
     "${CMAKE_CURRENT_SOURCE_DIR}/*.hpp"
 )
 
-add_library(parser STATIC ${PARSER_FILES})
+add_library(parser SHARED ${PARSER_FILES})
 target_link_libraries(parser PUBLIC math_expr)
 
 target_include_directories(parser
