@@ -3,11 +3,12 @@
     "configurePresets": [
         {
             "name": "default-release-config",
-            "description": "Relase config with default compiler",
+            "description": "Release config with default compiler",
             "generator": "Ninja",
             "binaryDir": "build/${presetName}",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Release"
+                "CMAKE_BUILD_TYPE": "Release",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true
             }
         },
         {
@@ -16,7 +17,8 @@
             "generator": "Ninja",
             "binaryDir": "build/${presetName}",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
+                "CMAKE_BUILD_TYPE": "Debug",
+                "CMAKE_EXPORT_COMPILE_COMMANDS": true
             }
         }
     ],
