@@ -3,7 +3,7 @@
 #include "parser/token_type.hpp"
 #include "parser/token.hpp"
 
-Lexer::Lexer(std::string input_str) : input_stream_(std::move(input_str)), curr_(getTokenFromStream())
+Lexer::Lexer(std::string input_str) : input_stream_(std::move(input_str)), curr_(Tokens::Type::None)
 {
 }
 
@@ -11,7 +11,7 @@ void Lexer::setInputStr(std::string input_str)
 {
     input_stream_.clear();
     input_stream_.str(std::move(input_str));
-    curr_ = getTokenFromStream();
+    curr_ = Tokens::Token{Tokens::Type::None};
 }
 
 const Tokens::Token& Lexer::peek() const
