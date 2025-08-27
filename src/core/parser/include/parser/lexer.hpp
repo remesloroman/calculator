@@ -13,7 +13,9 @@ public:
 
     const Tokens::Token& peek() const;
 
-    const Tokens::Token& get();
+    const Tokens::Token& curr() const;
+
+    Lexer& next();
 
     bool end() const;
 
@@ -23,5 +25,8 @@ private:
     Tokens::Token getTokenFromStream();
 
     std::istringstream input_stream_;
+
     Tokens::Token curr_;
+
+    Tokens::Token next_;
 };

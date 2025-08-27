@@ -3,7 +3,8 @@
 #include "parser/token_type.hpp"
 #include "parser/token.hpp"
 
-Lexer::Lexer(std::string input_str) : input_stream_(std::move(input_str)), curr_(Tokens::Type::None)
+Lexer::Lexer(std::string input_str) : input_stream_(std::move(input_str)), curr_(Tokens::Type::None),
+                                      next_(getTokenFromStream())
 {
 }
 
@@ -12,9 +13,15 @@ void Lexer::setInputStr(std::string input_str)
     input_stream_.clear();
     input_stream_.str(std::move(input_str));
     curr_ = Tokens::Token{Tokens::Type::None};
+    next_ = getTokenFromStream();
 }
 
 const Tokens::Token& Lexer::peek() const
+{
+    return next_;
+}
+
+const Tokens::Token& Lexer::curr() const
 {
     return curr_;
 }
@@ -41,14 +48,15 @@ Tokens::Token Lexer::getTokenFromStream()
     return Tokens::Token{Tokens::typeFromChar(character)};
 }
 
-const Tokens::Token& Lexer::get()
+Lexer& Lexer::next()
 {
     if (!end() && !error())
     {
-        curr_ = getTokenFromStream();
+        curr_ = next_;
+        next_ = getTokenFromStream();
     }
 
-    return peek();
+    return *this;
 }
 
 bool Lexer::end() const
