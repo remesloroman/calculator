@@ -11,17 +11,17 @@ public:
 
     void setInputStr(std::string input_str);
 
-    const Token& peek() const;
+    const Tokens::Token& peek() const;
 
-    const Token& get();
+    const Tokens::Token& get();
 
     bool end() const;
 
     bool error() const;
 
 private:
-    Token getTokenFromStream();
+    Tokens::Token getTokenFromStream();
 
     std::istringstream input_stream_;
-    Token curr_;
+    Tokens::Token curr_;
 };

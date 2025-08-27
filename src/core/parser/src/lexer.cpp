@@ -1,7 +1,7 @@
 #include "parser/lexer.hpp"
 
 #include "parser/token_type.hpp"
-#include "parser/token_type_utils.hpp"
+#include "parser/token.hpp"
 
 Lexer::Lexer(std::string input_str) : input_stream_(std::move(input_str)), curr_(getTokenFromStream())
 {
@@ -14,17 +14,17 @@ void Lexer::setInputStr(std::string input_str)
     curr_ = getTokenFromStream();
 }
 
-const Token& Lexer::peek() const
+const Tokens::Token& Lexer::peek() const
 {
     return curr_;
 }
 
-Token Lexer::getTokenFromStream()
+Tokens::Token Lexer::getTokenFromStream()
 {
     input_stream_ >> std::ws;
     if (input_stream_.eof())
     {
-        return Token{TokenType::EndOfFile};
+        return Tokens::Token{Tokens::Type::EndOfFile};
     }
 
     char character = input_stream_.peek();
@@ -32,16 +32,16 @@ Token Lexer::getTokenFromStream()
     {
         FloatT value = 0.0;
         if (!(input_stream_ >> value))
-            return Token{TokenType::Error};
+            return Tokens::Token{Tokens::Type::Error};
 
-        return Token{value};
+        return Tokens::Token{value};
     }
 
     input_stream_.get();
-    return Token{getCharTokenType(character)};
+    return Tokens::Token{Tokens::typeFromChar(character)};
 }
 
-const Token& Lexer::get()
+const Tokens::Token& Lexer::get()
 {
     if (!end() && !error())
     {
@@ -53,10 +53,10 @@ const Token& Lexer::get()
 
 bool Lexer::end() const
 {
-    return curr_.type() == TokenType::EndOfFile;
+    return curr_.type() == Tokens::Type::EndOfFile;
 }
 
 bool Lexer::error() const
 {
-    return curr_.type() == TokenType::Error;
+    return curr_.type() == Tokens::Type::Error;
 }
