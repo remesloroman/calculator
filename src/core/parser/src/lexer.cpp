@@ -7,13 +7,14 @@ Lexer::Lexer(std::string input_str) : input_stream_(std::move(input_str)), curr_
 {
 }
 
-void Lexer::str(std::string input_str)
+void Lexer::setInputStr(std::string input_str)
 {
+    input_stream_.clear();
     input_stream_.str(std::move(input_str));
     curr_ = getTokenFromStream();
 }
 
-Token Lexer::curr() const
+const Token& Lexer::peek() const
 {
     return curr_;
 }
@@ -40,14 +41,14 @@ Token Lexer::getTokenFromStream()
     return Token{getCharTokenType(character)};
 }
 
-Lexer &Lexer::next()
+const Token& Lexer::get()
 {
     if (!end() && !error())
     {
         curr_ = getTokenFromStream();
     }
 
-    return *this;
+    return peek();
 }
 
 bool Lexer::end() const

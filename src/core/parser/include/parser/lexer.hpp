@@ -7,13 +7,13 @@
 class Lexer
 {
 public:
-    Lexer(std::string input_str);
+    explicit Lexer(std::string input_str);
 
-    void str(std::string input_str);
+    void setInputStr(std::string input_str);
 
-    Token curr() const;
+    const Token& peek() const;
 
-    Lexer &next();
+    const Token& get();
 
     bool end() const;
 
