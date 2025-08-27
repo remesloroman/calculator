@@ -11,10 +11,16 @@ GridLayout {
     columnSpacing: 0
     rowSpacing: 0
 
+    signal buttonClicked(string symbol)
+
 
     ButtonModel {
         id: data
     }
+
+    // UButton {
+    //     id: clearButton
+    // }
 
     Repeater {
         model: data.buttons
@@ -31,9 +37,7 @@ GridLayout {
             text: modelData.text
             Layout.columnSpan: (text === "0") ? 2 : 1
 
-            onClicked: {
-
-            }
+            onClicked: buttonClicked(text)
         }
     }
 }

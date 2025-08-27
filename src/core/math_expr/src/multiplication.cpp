@@ -1,6 +1,7 @@
 #include "math_expr/multiplication.hpp"
 
-Multiplication::Multiplication(ExprPtr lhs, ExprPtr rhs) : lhs_(std::move(lhs)), rhs_(std::move(rhs)){
+Multiplication::Multiplication(ExprPtr lhs, ExprPtr rhs) 
+    : BinaryExpression(std::move(lhs), std::move(rhs)) {
 
 }
 
