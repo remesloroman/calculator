@@ -2,30 +2,32 @@
 
 #include "parser/token.hpp"
 
-Token::Token(TokenType type) : type_(type), val_(DEFAULT_VAL)
+namespace Tokens
 {
-}
-
-Token::Token(FloatT val) : type_(TokenType::Literal), val_(val)
-{
-}
-
-TokenType Token::type() const
-{
-    return type_;
-}
-
-bool Token::hasValue() const
-{
-    return type_ == TokenType::Literal;
-}
-
-FloatT Token::val() const
-{
-    if (!hasValue())
+    Token::Token(const Type token_type) : type_(token_type), val_(DEFAULT_VAL)
     {
-        throw std::runtime_error("Token::val: Following type of token cannot have a value");
     }
 
-    return val_;
+    Token::Token(const FloatT value) : type_(Type::Literal), val_(value)
+    {
+    }
+
+    Type Token::type() const
+    {
+        return type_;
+    }
+
+    bool Token::hasValue() const
+    {
+        return type() == Type::Literal;
+    }
+
+    FloatT Token::value() const
+    {
+        if (!hasValue())
+        {
+            throw std::runtime_error("Token::val: following type of token cannot have a value");
+        }
+        return val_;
+    }
 }

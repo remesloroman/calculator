@@ -3,23 +3,25 @@
 #include "alias/alias.hpp"
 #include "parser/token_type.hpp"
 
-
-class Token
+namespace Tokens
 {
-public:
-    static constexpr FloatT DEFAULT_VAL = 0;
+    class Token
+    {
+    public:
+        static constexpr FloatT DEFAULT_VAL = 0;
 
-    explicit Token(TokenType type);
+        explicit Token(Type token_type);
 
-    explicit Token(FloatT val);
+        explicit Token(FloatT value);
 
-    TokenType type() const;
+        Type type() const;
 
-    bool hasValue() const;
+        bool hasValue() const;
 
-    FloatT val() const;
+        FloatT value() const;
 
-private:
-    TokenType type_;
-    FloatT val_;
-};
+    private:
+        Type type_;
+        FloatT val_;
+    };
+}
