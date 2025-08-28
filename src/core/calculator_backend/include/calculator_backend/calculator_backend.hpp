@@ -6,13 +6,14 @@
 #include "parser/parser.hpp"
 #include "alias/alias.hpp"
 
-class CalculatorBackend{
+class CalculatorBackend
+{
 public:
-    CalculatorBackend(std::string input_string = "");
+    explicit CalculatorBackend(std::string input_string = "");
 
     std::optional<FloatT> eval();
 
-    void setInputString(std::string input_string);
+    void setInputStr(std::string input_string);
 
 private:
     Parser parser_;
