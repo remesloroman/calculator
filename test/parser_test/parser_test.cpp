@@ -194,5 +194,30 @@ int main()
         assert(p.parse() != nullptr);
     }
 
+    std::cout << "Test 5 passed(Parser exceptions)." << std::endl;
+
+    {
+        Parser p("2 +++++++++++++++++++++++++++++++++ 12");
+        assert(p.parse()->eval() == 14);
+
+        p.setInputStr("2 +++--- 12");
+        assert(p.parse()->eval() == -10);
+
+        p.setInputStr("--- 12");
+        assert(p.parse()->eval() == -12);
+
+        p.setInputStr("---+12");
+        assert(p.parse()->eval() == -12);
+
+        p.setInputStr("12+-(4 + 0000000001)");
+        assert(p.parse()->eval() == 7);
+
+        p.setInputStr("(-3) + -2 + 2");
+        assert(p.parse()->eval() == -3);
+
+        p.setInputStr("--(4 + -(3 + 2 - 12))");
+        assert(p.parse()->eval() == 11);
+    }
+
     return 0;
 }
