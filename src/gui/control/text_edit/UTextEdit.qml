@@ -24,6 +24,7 @@ Rectangle {
 
         TextEdit {
             id: tedit
+            width: Math.max(outerScroll.width, implicitWidth)
             wrapMode: TextEdit.NoWrap
             font.pixelSize: 30
             color: "#fff"
