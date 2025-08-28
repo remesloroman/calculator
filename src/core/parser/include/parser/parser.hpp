@@ -10,6 +10,8 @@ class Parser
 
     static ExprPtr makeBinaryExpression(Tokens::Type operation, ExprPtr lhs, ExprPtr rhs);
 
+    static ExprPtr makeUnaryExpression(Tokens::Type operation, ExprPtr rhs);
+
 public:
     explicit Parser(std::string input_str);
 
