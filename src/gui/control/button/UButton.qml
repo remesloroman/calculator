@@ -5,7 +5,9 @@ Button {
     id: root
     property color baseColor: "#e0e0e0"
 
-    font.pixelSize: 19
+    font {
+        pixelSize: 19
+    }
 
     contentItem: Text {
         text: root.text

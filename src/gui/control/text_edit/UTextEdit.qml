@@ -7,7 +7,6 @@ Rectangle {
     width: 300
     height: 80
     color: "#2f3b3e"
-    border.color: "#b0b0b0"
     border.width: 1
 
     property alias text: tedit.text
