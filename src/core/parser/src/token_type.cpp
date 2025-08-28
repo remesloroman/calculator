@@ -42,7 +42,7 @@ namespace Tokens
         }
     }
 
-    std::pair<FloatT, FloatT> typeBindingPower(const Type token_type)
+    std::pair<FloatT, FloatT> binaryTypeBindingPower(const Type token_type)
     {
         switch (token_type)
         {
@@ -55,7 +55,21 @@ namespace Tokens
         case Type::Division:
             return {2.0, 2.1};
         default:
-            throw std::invalid_argument("typeBindingPower: token_type cannot have a binding power");
+            throw std::invalid_argument("binaryTypeBindingPower: token_type cannot have a binding power");
         }
     }
+
+    FloatT unaryTypeBindingPower(Type token_type)
+    {
+        switch (token_type)
+        {
+        case Type::Addition:
+            return 3.0;
+        case Type::Subtraction:
+            return 3.0;
+        default:
+            throw std::invalid_argument("unaryTypeBindingPower: token_type cannot have a binding power");
+        }
+    }
+
 }

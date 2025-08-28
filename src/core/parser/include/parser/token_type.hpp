@@ -24,7 +24,9 @@ namespace Tokens
 
     Type typeFromChar(char character);
 
-    std::pair<FloatT,FloatT> typeBindingPower(Type token_type);
+    std::pair<FloatT,FloatT> binaryTypeBindingPower(Type token_type);
+
+    FloatT unaryTypeBindingPower(Type token_type);
 }
 
 
