@@ -28,9 +28,11 @@ void CalculatorController::calculate() {
 
     QString result;
 
-    try{
-        result = QString::number(backend_.eval().value_or(0));
-    } catch(const std::exception & e) {
+    auto eval_data = backend_.eval();
+
+    if(eval_data.has_value()) {
+        result = QString::number(eval_data.value());
+    } else {
         result = "Unexpected symbol";
     }
 
