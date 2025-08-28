@@ -34,3 +34,8 @@ Before building the project, create your own CMakeUserPresets.json from CMakeUse
 ``` sh
 ctest --preset=clang-test
 ```
+
+# Contributions
+
+This project was developed collaboratively (50/50) with [T-im4i-k](https://github.com/T-im4i-k).
+My main contributions: UI design, core math_expr implementation, basic lexer/parser implementation.
