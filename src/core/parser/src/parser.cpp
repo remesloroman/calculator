@@ -1,95 +1,103 @@
-#include <stdexcept>
-#include <memory>
-
 #include "parser/parser.hpp"
 
-void Parser::setInputString(std::string input)
+#include "math_expr/expression.hpp"
+#include "math_expr/literal.hpp"
+#include "math_expr/addition.hpp"
+#include "math_expr/multiplication.hpp"
+#include "math_expr/subtraction.hpp"
+#include "math_expr/division.hpp"
+
+
+ExprPtr Parser::makeBinaryExpression(Tokens::Type operation, ExprPtr lhs, ExprPtr rhs)
 {
-    lexer_.initialize(std::move(input));
+    if (!lhs || !rhs)
+    {
+        return nullptr;
+    }
+
+    switch (operation)
+    {
+    case Tokens::Type::Addition:
+        return std::make_unique<Addition>(std::move(lhs), std::move(rhs));
+    case Tokens::Type::Multiplication:
+        return std::make_unique<Multiplication>(std::move(lhs), std::move(rhs));
+    case Tokens::Type::Subtraction:
+        return std::make_unique<Subtraction>(std::move(lhs), std::move(rhs));
+    case Tokens::Type::Division:
+        return std::make_unique<Division>(std::move(lhs), std::move(rhs));
+    default:
+        throw std::invalid_argument("Parser::makeBinaryExpression: operation is not a valid binary operation");
+    }
 }
 
-Parser::Parser(std::string input) : lexer_(std::move(input))
+Parser::Parser(std::string input_str) : lexer_(std::move(input_str))
 {
+}
+
+void Parser::setInputStr(std::string input_str)
+{
+    lexer_.setInputStr(std::move(input_str));
 }
 
 ExprPtr Parser::parse()
 {
-    return parseExpression(lexer_, 0.0);
+    ExprPtr expr = parseImpl(DEFAULT_BP);
+    return lexer_.next().end() ? std::move(expr) : nullptr;
 }
 
-ExprPtr Parser::makeExpression(TokenType op, ExprPtr lhs, ExprPtr rhs)
+
+ExprPtr Parser::parseImpl(const FloatT min_bind_power)
 {
-    switch (op)
-    {
-    case TokenType::Addition:
-        return std::make_unique<Addition>(std::move(lhs), std::move(rhs));
-        break;
-    case TokenType::Subtraction:
-        return std::make_unique<Subtraction>(std::move(lhs), std::move(rhs));
-        break;
-    case TokenType::Multiplication:
-        return std::make_unique<Multiplication>(std::move(lhs), std::move(rhs));
-        break;
-    case TokenType::Division:
-        return std::make_unique<Division>(std::move(lhs), std::move(rhs));
-        break;
-    default:
-        throw std::invalid_argument("Parser::makeExpression: op argument must represent an operation");
-    }
-
-    return nullptr;
+    ExprPtr lhs = parsePrefix();
+    return parseInfix(min_bind_power, std::move(lhs));
 }
 
-ExprPtr Parser::parseInfixLoop(Lexer &lexer, ExprPtr lhs, FloatT min_bp)
+ExprPtr Parser::parsePrefix()
+{
+    switch (const Tokens::Token token = lexer_.next().curr(); token.type())
+    {
+    case Tokens::Type::LeftParen:
+        {
+            if (ExprPtr lhs = parseImpl(DEFAULT_BP); lexer_.peek().type() == Tokens::Type::RightParen)
+            {
+                lexer_.next();
+                return lhs;
+            }
+            return nullptr;
+        }
+    case Tokens::Type::Literal:
+        return ExprPtr(new Literal(token.value()));
+    default:
+        return nullptr;
+    }
+}
+
+ExprPtr Parser::parseInfix(const FloatT min_bind_power, ExprPtr lhs)
 {
     while (true)
     {
-        Token token = lexer.peek();
-
-        if (token.type() == TokenType::RightParen)
+        Tokens::Token token = lexer_.peek();
+        if (token.type() == Tokens::Type::EndOfFile ||
+            token.type() == Tokens::Type::RightParen)
+        {
             break;
-        else if (token.type() == TokenType::EndOfFile)
+        }
+        if (!Tokens::typeIsOperator(token.type()))
+        {
+            return nullptr;
+        }
+
+        auto [lhs_bind_power, rhs_bind_power] = Tokens::typeBindingPower(token.type());
+        if (lhs_bind_power < min_bind_power)
+        {
             break;
-        else if (!isOperator(token.type()))
-            throw std::runtime_error("Parser::parseInfixLoop: unexpected symbol");
+        }
 
-        TokenTypeBP bp = getTokenTypeBP(token.type());
+        lexer_.next();
 
-        if (bp.lhs_bp_ < min_bp)
-            break;
-
-        lexer.next();
-
-        ExprPtr rhs = parseExpression(lexer, bp.rhs_bp_);
-
-        lhs = makeExpression(token.type(), std::move(lhs), std::move(rhs));
+        ExprPtr rhs = parseImpl(rhs_bind_power);
+        lhs = makeBinaryExpression(token.type(), std::move(lhs), std::move(rhs));
     }
-
-    return lhs;
-}
-
-ExprPtr Parser::parsePrefix(Lexer &lexer)
-{
-    Token token = lexer.next();
-
-    switch (token.type())
-    {
-    case TokenType::Literal:
-        return std::make_unique<Literal>(token.val());
-    case TokenType::LeftParen:
-        return parseExpression(lexer, 0.0);
-    default:
-        throw std::runtime_error("Parser::parsePrefix: unexpected symbol");
-    }
-
-    return nullptr;
-}
-
-ExprPtr Parser::parseExpression(Lexer &lexer, FloatT min_bp)
-{
-    ExprPtr lhs = parsePrefix(lexer);
-
-    lhs = parseInfixLoop(lexer, std::move(lhs), min_bp);
 
     return lhs;
 }

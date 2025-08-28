@@ -6,12 +6,15 @@ CalculatorBackend::CalculatorBackend(std::string input_string) : parser_(std::mo
 {
 }
 
-void CalculatorBackend::setInputString(std::string input_string){
-    parser_.setInputString(std::move(input_string));
+void CalculatorBackend::setInputStr(std::string input_string)
+{
+    parser_.setInputStr(std::move(input_string));
 }
 
-std::optional<FloatT> CalculatorBackend::eval(){
-    if(ExprPtr ptr = parser_.parse(); ptr){
+std::optional<FloatT> CalculatorBackend::eval()
+{
+    if (ExprPtr ptr = parser_.parse(); ptr)
+    {
         return ptr->eval();
     }
 

@@ -1,84 +1,70 @@
-#include <memory>
-
 #include "parser/lexer.hpp"
-#include "parser/token_type_utils.hpp"
 
-Lexer::Lexer(std::string is)
+#include "parser/token_type.hpp"
+#include "parser/token.hpp"
+
+Lexer::Lexer(std::string input_str) : input_stream_(std::move(input_str)), curr_(Tokens::Type::None),
+                                      next_(getTokenFromStream())
 {
-    initialize(std::move(is));
 }
 
-void Lexer::skipSpaces()
+void Lexer::setInputStr(std::string input_str)
 {
-    while (std::isspace(static_cast<unsigned char>(source_.peek())))
+    input_stream_.clear();
+    input_stream_.str(std::move(input_str));
+    curr_ = Tokens::Token{Tokens::Type::None};
+    next_ = getTokenFromStream();
+}
+
+const Tokens::Token& Lexer::peek() const
+{
+    return next_;
+}
+
+const Tokens::Token& Lexer::curr() const
+{
+    return curr_;
+}
+
+Tokens::Token Lexer::getTokenFromStream()
+{
+    input_stream_ >> std::ws;
+    if (input_stream_.eof())
     {
-        source_.get();
+        return Tokens::Token{Tokens::Type::EndOfFile};
     }
-}
 
-bool Lexer::checkEOF()
-{
-    int symbol = source_.peek();
-
-    if (symbol == EOF)
+    char character = input_stream_.peek();
+    if (std::isdigit(static_cast<unsigned char>(character)))
     {
-        return true;
+        FloatT value = 0.0;
+        if (!(input_stream_ >> value))
+            return Tokens::Token{Tokens::Type::Error};
+
+        return Tokens::Token{value};
     }
 
-    return false;
+    input_stream_.get();
+    return Tokens::Token{Tokens::typeFromChar(character)};
 }
 
-Token Lexer::next() {
-    current_ = tokens_.front();
-    tokens_.pop();
-
-    return current_;
-}
-
-Token Lexer::peek() {
-    return tokens_.front();
-}
-
-Token Lexer::itterate()
+Lexer& Lexer::next()
 {
-    skipSpaces();
-
-    if (checkEOF()) return Token(TokenType::EndOfFile);
-
-    char symbol = source_.peek();
-
-    if (std::isdigit(static_cast<unsigned char>(symbol)))
+    if (!end() && !error())
     {
-        double value = 0.0;
-        if (!(source_ >> value)) return Token(TokenType::Error);
-
-        return Token(value);
+        curr_ = next_;
+        next_ = getTokenFromStream();
     }
 
-    source_.get();
-
-    return Token(getCharTokenType(symbol));
+    return *this;
 }
 
-Token Lexer::current() {
-    return current_;
+bool Lexer::end() const
+{
+    return curr_.type() == Tokens::Type::EndOfFile;
 }
 
-void Lexer::initialize(std::string input) {
-    source_.clear();
-    source_.str(std::move(input));
-
-    // Clear queue
-    while(!tokens_.empty()) tokens_.pop();
-
-    Token current = itterate();
-    tokens_.push(current);
-
-    // Init current_
-    current_ = current;
-
-    while(current.type() != TokenType::EndOfFile) {
-        current = itterate();
-        tokens_.push(current);
-    }
+bool Lexer::error() const
+{
+    return curr_.type() == Tokens::Type::Error;
 }

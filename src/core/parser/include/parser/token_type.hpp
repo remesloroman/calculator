@@ -1,17 +1,32 @@
 #pragma once
 
-enum class TokenType
+#include "alias/alias.hpp"
+
+namespace Tokens
 {
-    EndOfFile,
-    Error,
+    enum class Type
+    {
+        None,
+        EndOfFile,
+        Error,
 
-    Literal,
-    Addition,
-    Multiplication,
-    Subtraction,
-    Division,
+        Literal,
+        Addition,
+        Multiplication,
+        Subtraction,
+        Division,
 
-    LeftParen,
-    RightParen,
+        LeftParen,
+        RightParen,
 
-};
+    };
+    bool typeIsOperator(Type token_type);
+
+    Type typeFromChar(char character);
+
+    std::pair<FloatT,FloatT> typeBindingPower(Type token_type);
+}
+
+
+
+

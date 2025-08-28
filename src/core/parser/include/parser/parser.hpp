@@ -2,27 +2,27 @@
 
 #include "parser/lexer.hpp"
 #include "math_expr/expression.hpp"
-#include "math_expr/literal.hpp"
-#include "math_expr/addition.hpp"
-#include "math_expr/subtraction.hpp"
-#include "math_expr/multiplication.hpp"
-#include "math_expr/division.hpp"
-#include "parser/token_type_utils.hpp"
+#include "alias/alias.hpp"
 
-class Parser {
+class Parser
+{
+    static constexpr FloatT DEFAULT_BP = 0.0;
+
+    static ExprPtr makeBinaryExpression(Tokens::Type operation, ExprPtr lhs, ExprPtr rhs);
+
 public:
-    Parser(std::string input);
+    explicit Parser(std::string input_str);
 
-    void setInputString(std::string input);
+    void setInputStr(std::string input_str);
 
     ExprPtr parse();
 
 private:
-    ExprPtr makeExpression(TokenType op, ExprPtr lhs, ExprPtr rhs);
-    ExprPtr parseExpression(Lexer & lexer, FloatT min_bp);
-    ExprPtr parseInfixLoop(Lexer & lexer, ExprPtr lhs, FloatT min_bp);
-    ExprPtr parsePrefix(Lexer & lexer);
+    ExprPtr parseImpl(FloatT min_bind_power);
+
+    ExprPtr parsePrefix();
+
+    ExprPtr parseInfix(FloatT min_bind_power, ExprPtr lhs);
 
     Lexer lexer_;
-   
 };
