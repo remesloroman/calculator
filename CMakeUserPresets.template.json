@@ -6,7 +6,7 @@
             "description": "Relase config with clang compiler",
             "inherits": "default-release-config",
             "cacheVariables": {
-                "CMAKE_CXX_COMPILER": "clang",
+                "CMAKE_CXX_COMPILER": "clang++",
                 "CMAKE_CXX_FLAGS_RELEASE": "-O2 -DNDEBUG",
                 "CMAKE_PREFIX_PATH": "<QT6_PATH>"
             }
