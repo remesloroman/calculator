@@ -24,7 +24,7 @@ void CalculatorController::clear() {
 }
 
 void CalculatorController::calculate() {
-    backend_.setInputString(input_text_.toStdString());
+    backend_.setInputStr(input_text_.toStdString());
 
     QString result;
 
