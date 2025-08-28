@@ -171,5 +171,28 @@ int main()
 
     std::cout << "Test 5 passed(Parser)." << std::endl;
 
+    {
+        Parser p("2 + ");
+        assert(p.parse() == nullptr);
+
+        p.setInputStr("2 + -");
+        assert(p.parse() == nullptr);
+
+        p.setInputStr(" + -");
+        assert(p.parse() == nullptr);
+
+        p.setInputStr("(2");
+        assert(p.parse() == nullptr);
+
+        p.setInputStr("2)");
+        assert(p.parse() == nullptr);
+
+        p.setInputStr("()");
+        assert(p.parse() == nullptr);
+
+        p.setInputStr("3 + 2.");
+        assert(p.parse() != nullptr);
+    }
+
     return 0;
 }

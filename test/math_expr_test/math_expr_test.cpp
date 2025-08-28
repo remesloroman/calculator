@@ -20,9 +20,15 @@ int main()
     }
 
     {
-        UnarySubtraction *un_expr = new UnarySubtraction(std::make_unique<Literal>(55));
+        UnarySubtraction *lhs = new UnarySubtraction(std::make_unique<Literal>(3));
 
-        assert(un_expr->eval() == -55);
+        assert(lhs->eval() == -3);
+
+        Addition *result = new Addition(std::make_unique<UnarySubtraction>(
+                            std::make_unique<Literal>(3)), 
+                            std::make_unique<Literal>(2));
+
+        assert(result->eval() == -1);
     }
 
     return 0;
