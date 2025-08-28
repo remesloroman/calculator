@@ -6,6 +6,7 @@
 #include "math_expr/multiplication.hpp"
 #include "math_expr/subtraction.hpp"
 #include "math_expr/division.hpp"
+#include "math_expr/unary_subtraction.hpp"
 
 
 ExprPtr Parser::makeBinaryExpression(Tokens::Type operation, ExprPtr lhs, ExprPtr rhs)
@@ -27,6 +28,21 @@ ExprPtr Parser::makeBinaryExpression(Tokens::Type operation, ExprPtr lhs, ExprPt
         return std::make_unique<Division>(std::move(lhs), std::move(rhs));
     default:
         throw std::invalid_argument("Parser::makeBinaryExpression: operation is not a valid binary operation");
+    }
+}
+
+ExprPtr Parser::makeUnaryExpression(Tokens::Type operation, ExprPtr rhs)
+{
+    if (!rhs)
+    {
+        return nullptr;
+    }
+    switch (operation)
+    {
+    case Tokens::Type::Subtraction:
+        return std::make_unique<UnarySubtraction>(std::move(rhs));
+    default:
+        throw std::invalid_argument("Parser::makeUnaryExpression: operation is not a valid unary operation");
     }
 }
 
@@ -65,6 +81,11 @@ ExprPtr Parser::parsePrefix()
             }
             return nullptr;
         }
+    case Tokens::Type::Subtraction:
+        {
+            ExprPtr rhs = parseImpl(Tokens::unaryTypeBindingPower(token.type()));
+            return makeUnaryExpression(token.type(), std::move(rhs));
+        }
     case Tokens::Type::Literal:
         return ExprPtr(new Literal(token.value()));
     default:
@@ -87,7 +108,7 @@ ExprPtr Parser::parseInfix(const FloatT min_bind_power, ExprPtr lhs)
             return nullptr;
         }
 
-        auto [lhs_bind_power, rhs_bind_power] = Tokens::typeBindingPower(token.type());
+        auto [lhs_bind_power, rhs_bind_power] = Tokens::binaryTypeBindingPower(token.type());
         if (lhs_bind_power < min_bind_power)
         {
             break;
