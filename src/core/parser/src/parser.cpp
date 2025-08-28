@@ -7,6 +7,7 @@
 #include "math_expr/subtraction.hpp"
 #include "math_expr/division.hpp"
 #include "math_expr/unary_subtraction.hpp"
+#include "math_expr/unary_addition.hpp"
 
 
 ExprPtr Parser::makeBinaryExpression(Tokens::Type operation, ExprPtr lhs, ExprPtr rhs)
@@ -41,6 +42,8 @@ ExprPtr Parser::makeUnaryExpression(Tokens::Type operation, ExprPtr rhs)
     {
     case Tokens::Type::Subtraction:
         return std::make_unique<UnarySubtraction>(std::move(rhs));
+    case Tokens::Type::Addition:
+        return std::make_unique<UnaryAddition>(std::move(rhs));
     default:
         throw std::invalid_argument("Parser::makeUnaryExpression: operation is not a valid unary operation");
     }
@@ -82,6 +85,11 @@ ExprPtr Parser::parsePrefix()
             return nullptr;
         }
     case Tokens::Type::Subtraction:
+        {
+            ExprPtr rhs = parseImpl(Tokens::unaryTypeBindingPower(token.type()));
+            return makeUnaryExpression(token.type(), std::move(rhs));
+        }
+    case Tokens::Type::Addition:
         {
             ExprPtr rhs = parseImpl(Tokens::unaryTypeBindingPower(token.type()));
             return makeUnaryExpression(token.type(), std::move(rhs));
